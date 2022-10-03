@@ -24,11 +24,12 @@
     "docs-build": "typedoc --out docs src/index.ts",
     "eslint:check": "eslint . --max-warnings 0 --ext .js,.ts",
     "lint:check": "concurrently \"yarn check-types\" \"yarn prettier:check\" \"yarn eslint:check\"",
-    "prepare": "husky install && npm run build",
+    "prepare": "npm run snyk-protect && husky install && npm run build",
     "test": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\"}' TS_NODE_TRANSPILE_ONLY=true nyc mocha -r ts-node/register src/__tests__/**/*.ts --timeout 15000",
     "prettier:check": "prettier --check .",
     "prettier:check:package.json": "yarn prettier-package-json --list-different",
-    "prettier:fix": "prettier --write ."
+    "prettier:fix": "prettier --write .",
+    "snyk-protect": "snyk-protect"
   },
   "types": "lib/index.d.ts",
   "dependencies": {
@@ -42,9 +43,10 @@
     "isomorphic-unfetch": "^2.1.1",
     "lodash": "^4.17.21",
     "query-string": "^6.11.1",
-    "web3": "1.7.0",
+    "web3": "1.7.5",
     "wyvern-js": "git+https://github.com/ProjectOpenSea/wyvern-js.git#7429b1f2dd123f012cae1f3144a069e91ecd0682",
-    "wyvern-schemas": "git+https://github.com/ProjectOpenSea/wyvern-schemas.git#af1fc62dd58144b60487df690c77dcf8daa45669"
+    "wyvern-schemas": "git+https://github.com/ProjectOpenSea/wyvern-schemas.git#af1fc62dd58144b60487df690c77dcf8daa45669",
+    "@snyk/protect": "latest"
   },
   "devDependencies": {
     "@typechain/web3-v1": "^5.0.0",
@@ -105,5 +107,6 @@
     "**/*.{ts,tsx,js,jsx}": [
       "eslint --cache --fix"
     ]
-  }
+  },
+  "snyk": true
 }
